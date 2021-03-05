@@ -36,7 +36,7 @@ public class UserGetTest extends UserIntegrationTest {
     List<SSHKey> keys = getKeys()
       .collectList()
       .block();
-    assertEquals(4, keys.size(),  () -> "Should be 4 keys");
+    assertEquals(0, keys.size(),  () -> "Should be 0 keys");
   }
 
   @Then("^User gets his public emails$")
@@ -45,14 +45,20 @@ public class UserGetTest extends UserIntegrationTest {
     List<PublicEmail> emails = getEmails()
       .collectList()
       .block();
+    log.info("Emails Size: [" + emails.size() + "]");
     PublicEmail email = emails.get(0);
+
+    log.info("Public Email: [" + email.getEmail() + "]");
+    log.info("Email Verified: [" + email.getVerified() + "]");
+    log.info("Email Primary: [" + email.getPrimary() + "]");
+    log.info("Email Visibility: [" + email.getVisibility() + "]");
 
     assertTrue(emails.size() == 1,  () -> "Should be 1 email");
     assertAll("email",
-        () -> assertEquals("joseluis.delacruz@gmail.com", email.getEmail(), "Should contains josdem's email"),
+        () -> assertEquals("22084419+ofyaniv@users.noreply.github.com", email.getEmail(), "Should contains josdem's email"),
         () -> assertTrue(email.getVerified(), "Should be verified"),
-        () -> assertTrue(email.getPrimary(), "Should be primary"),
-        () -> assertEquals("public", email.getVisibility(), "Should be public")
+        () -> assertTrue(!email.getPrimary(), "Should not be primary"),
+        () -> assertEquals(null, email.getVisibility(), "Should not be public")
     );
   }
 

@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
   private WebClient webClient;
 
   public Flux<SSHKey> getKeys() {
-    return webClient.get().uri("users/josdem/keys").retrieve()
+    return webClient.get().uri("users/ofyaniv/keys").retrieve()
     .bodyToFlux(SSHKey.class);
   }
 
