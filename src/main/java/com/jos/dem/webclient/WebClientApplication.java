@@ -10,9 +10,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @SpringBootApplication
 @PropertySource("classpath:application.properties")
 public class WebClientApplication {
+
+  private Logger log = LoggerFactory.getLogger(this.getClass());
 
   @Value("${github.api.url}")
   private String githubApiUrl;
@@ -23,6 +28,8 @@ public class WebClientApplication {
 
   @Bean
   public WebClient webClient() {
+    
+    log.info("Token: [" + token + "]");
     return WebClient
       .builder()
         .baseUrl(githubApiUrl)

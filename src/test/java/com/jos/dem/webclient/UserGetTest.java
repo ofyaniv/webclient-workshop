@@ -46,6 +46,7 @@ public class UserGetTest extends UserIntegrationTest {
       .collectList()
       .block();
     log.info("Emails Size: [" + emails.size() + "]");
+    log.info("Emails : [" + emails + "]");
     PublicEmail email = emails.get(0);
 
     log.info("Public Email: [" + email.getEmail() + "]");
